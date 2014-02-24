@@ -12,4 +12,5 @@
 */
 
 Route::get('image/upload_form', 'ImageController@imageUploadForm');
-Route::post('image/image_upload.{format}', 'ImageController@uploadImage');
+Route::post('image', 'ImageController@uploadImage');
+Route::get('image/{id}', 'ImageController@getImage');

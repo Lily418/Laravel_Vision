@@ -65,6 +65,8 @@ class Image extends Eloquent {
 	$image -> path = $path;
 	$image -> save();
 
+	return $image -> id;
+
 
 }
 
