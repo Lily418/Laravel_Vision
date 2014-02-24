@@ -12,7 +12,7 @@ class CreateImageTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('users', function($table)
+		Schema::create('images', function($table)
     	{
 		$table->increments('id');
 		$table->string('path');
@@ -28,7 +28,7 @@ class CreateImageTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('users');
+		Schema::drop('images');
 	}
 
 }

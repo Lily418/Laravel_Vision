@@ -54,15 +54,16 @@ class Image extends Eloquent {
     // DO NOT USE $files['upfile']['name'] WITHOUT ANY VALIDATION !!
     // On this example, obtain safe unique name from its binary data.
 
+    $path = sprintf('./uploads/%s.%s', strval(Image::all() -> count()), $ext);
 	if (!move_uploaded_file(
-		$files['upfile']['tmp_name'],
-		sprintf('./uploads/%s.%s',
-			sha1_file($files['upfile']['tmp_name']),
-			$ext
-			)
+		$files['upfile']['tmp_name'], $path
 		)) {
 		throw new ErrorException('Failed to move uploaded file. '. getcwd());
 }
+
+	$image = new Image;
+	$image -> path = $path;
+	$image -> save();
 
 
 }
