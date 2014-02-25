@@ -1,7 +1,12 @@
 <?php
 class Image extends Eloquent {
 
-	public static function save_image($files){
+	public function user()
+	{
+		return $this->belongsTo('User');
+	}
+
+	public static function saveImage($files, $user, $path=null){
 
 
     // Undefined | Multiple Files | $files Corruption Attack
@@ -53,19 +58,24 @@ class Image extends Eloquent {
     // You should name it uniquely.
     // DO NOT USE $files['upfile']['name'] WITHOUT ANY VALIDATION !!
     // On this example, obtain safe unique name from its binary data.
+	if($path == null){
+		$path = sprintf('./uploads/%s', strval($user -> id)."_".strval(Image::all() -> count()));
+	}
+	$path .= ".".$ext;
 
-    $path = sprintf('./uploads/%s.%s', strval(Image::all() -> count()), $ext);
 	if (!move_uploaded_file(
 		$files['upfile']['tmp_name'], $path
 		)) {
 		throw new ErrorException('Failed to move uploaded file. '. getcwd());
 }
 
+	if($user != null){
 	$image = new Image;
 	$image -> path = $path;
+	$image -> user()->associate($user);
 	$image -> save();
-
 	return $image -> id;
+	}
 
 
 }
