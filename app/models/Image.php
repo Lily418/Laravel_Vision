@@ -69,13 +69,13 @@ class Image extends Eloquent {
 		throw new ErrorException('Failed to move uploaded file. '. getcwd());
 }
 
-	if($user != null){
 	$image = new Image;
 	$image -> path = $path;
+	if($user != null){
 	$image -> user()->associate($user);
+	}
 	$image -> save();
 	return $image -> id;
-	}
 
 
 }

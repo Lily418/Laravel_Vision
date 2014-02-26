@@ -15,4 +15,8 @@ class BaseController extends Controller {
 		}
 	}
 
+	public function homePage(){
+		return View::make('index');
+	}
+
 }

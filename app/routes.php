@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('image/upload_form', 'ImageController@imageUploadForm');
-Route::post('image', 'ImageController@uploadImage');
+Route::get('image/upload_form', 'ImageController@trainUploadForm');
+Route::get('image/identify_form', 'ImageController@identifyUploadForm');
+Route::post('image/', 'ImageController@uploadImage');
+Route::post('image/identify', 'ImageController@identify');
 Route::get('image/{id}', 'ImageController@getImage');
+Route::get('/', 'BaseController@homePage');
