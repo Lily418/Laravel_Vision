@@ -1,11 +1,5 @@
 @extends('layout')
 
-@section('css')
-#fileUpload {
-	display:inline;
-}
-@stop
-
 @section('content')
 	<h2>Input:</h2>
 	<img src="/image/{{{ $inputId }}}" />
