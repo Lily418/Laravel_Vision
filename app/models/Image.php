@@ -76,8 +76,15 @@ class Image extends Eloquent {
 	}
 	$image -> save();
 	return $image -> id;
+}
 
-
+public static function imagesGroupedByUser(){
+	$imageArray = array();
+	foreach(User::all() as $user){
+		$usersImages = Image::where('user_id', '=', $user->id)->get();
+		array_push($imageArray, array($usersImages, $user));
+	}
+	return $imageArray;
 }
 
 }

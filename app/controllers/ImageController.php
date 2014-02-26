@@ -3,35 +3,10 @@
 class ImageController extends BaseController {
 
 	public function trainUploadForm(){
-		return View::make('training_upload')->with('action', '/image')->with('grouped_images', $this->groupPhotos(Image::orderBy('user_id')->whereNotNull('user_id')->get()));
+		return View::make('training_upload')->with('action', '/image')->with('grouped_images', Image::imagesGroupedByUser());
 	}
 
-	//Images must be ordered by id
-	//Creates a nested array with each users photos grouped together in the same subarray
-	public function groupPhotos($userPhotos){
-		
-		$userId = null;
-		$imageArray = null;
-		$nestedImageArray = array();
-		foreach($userPhotos as $userPhoto){
-			//This is the first of this users images we've seen
-			if($userId == null || $userId != $userPhoto->user_id){
-				if($imageArray != null){
-					$user = User::find($userId);
-					array_push($nestedImageArray, array($imageArray, $user));
-				}
-				$imageArray = array();
-			}
 
-			array_push($imageArray, $userPhoto);
-			$userId = $userPhoto->user_id;
-		}
-
-		$user = User::find($userId);
-		array_push($nestedImageArray, array($imageArray, $user));
-
-		return $nestedImageArray;
-	}
 
 	public function identifyUploadForm(){
 		return View::make('upload_identify_image')->with('action', '/image/identify');
